@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoftNexs Mobile Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent);
+            border-radius: 50%;
+            top: -200px;
+            left: -200px;
+            animation: glow1 8s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3), transparent);
+            border-radius: 50%;
+            bottom: -250px;
+            right: -250px;
+            animation: glow2 10s ease-in-out infinite;
+        }
+
+        @keyframes glow1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        @keyframes glow2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, -30px) scale(1.15); }
+        }
+
+        .phone-container {
+            position: relative;
+            width: 360px;
+            height: 740px;
+            background: linear-gradient(145deg, #2d2d3a, #1a1a24);
+            border-radius: 50px;
+            padding: 14px;
+            box-shadow: 
+                0 50px 100px rgba(0, 0, 0, 0.5),
+                inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+            animation: float 4s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-15px) rotateY(2deg); }
+        }
+
+        .phone-buttons {
+            position: absolute;
+            right: -3px;
+            top: 120px;
+            width: 3px;
+            height: 60px;
+            background: linear-gradient(180deg, #3a3a4a, #2a2a35);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 170px;
+            height: 32px;
+            background: #0a0a0f;
+            border-radius: 0 0 24px 24px;
+            z-index: 20;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .notch-speaker {
+            position: absolute;
+            top: 12px;
+            left: 30px;
+            width: 50px;
+            height: 6px;
+            background: #1a1a24;
+            border-radius: 3px;
+        }
+
+        .notch-camera {
+            position: absolute;
+            top: 10px;
+            right: 30px;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #4a4a5a, #1a1a24);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #0a0a0f 0%, #1a1a24 100%);
+            border-radius: 38px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 38px 24px 12px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .indicators {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .battery {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .battery-icon {
+            width: 24px;
+            height: 12px;
+            border: 2px solid #fff;
+            border-radius: 2px;
+            position: relative;
+            padding: 2px;
+        }
+
+        .battery-icon::before {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: 3px;
+            width: 2px;
+            height: 4px;
+            background: #fff;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .battery-fill {
+            width: 80%;
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 1px;
+        }
+
+        .content {
+            padding: 20px 24px;
+            height: calc(100% - 140px);
+            overflow-y: auto;
+        }
+
+        .content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .header {
+            margin-bottom: 35px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4); }
+            50% { box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6); }
+        }
+
+        .brand-text {
+            flex: 1;
+        }
+
+        .brand-name {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2px;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-tagline {
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .greeting-card {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.3);
+        }
+
+        .greeting-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+            animation: cardGlow 6s linear infinite;
+        }
+
+        @keyframes cardGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .greeting-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .greeting-value {
+            color: #fff;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .greeting-change {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .change-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .action-btn {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 18px;
+            padding: 18px 12px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+        }
+
+        .action-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin: 0 auto 10px;
+        }
+
+        .action-label {
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .section-title {
+            color: #e2e8f0;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .see-all {
+            color: #3b82f6;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .feature-item {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 18px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(4px);
+        }
+
+        .feature-icon-box {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .feature-content {
+            flex: 1;
+        }
+
+        .feature-title {
+            color: #e2e8f0;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .feature-desc {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .feature-arrow {
+            color: #3b82f6;
+            font-size: 18px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-item:hover .feature-arrow {
+            opacity: 1;
+        }
+
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(30px);
+            padding: 12px 20px 28px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 16px;
+        }
+
+        .nav-item.active {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover .nav-icon {
+            transform: scale(1.15);
+        }
+
+        .nav-item.active .nav-icon {
+            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="phone-buttons"></div>
+        <div class="phone-notch">
+            <div class="notch-speaker"></div>
+            <div class="notch-camera"></div>
+        </div>
+        
+        <div class="screen">
+            <div class="status-bar">
+                <div class="time">9:41</div>
+                <div class="indicators">
+                    <svg width="16" height="12" viewBox="0 0 16 12" fill="white">
+                        <rect width="4" height="8" y="4" rx="1"/>
+                        <rect width="4" height="10" x="6" y="2" rx="1"/>
+                        <rect width="4" height="12" x="12" rx="1"/>
+                    </svg>
+                    <div class="battery">
+                        <span style="font-size: 11px;">100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="header">
+                    <div class="logo-container">
+                        <div class="logo">SN</div>
+                        <div class="brand-text">
+                            <div class="brand-name">SoftNexs</div>
+                            <div class="brand-tagline">Premium Experience</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="greeting-card">
+                    <div class="greeting-text">Your Performance</div>
+                    <div class="greeting-value">$55,250</div>
+                    <div class="greeting-change">
+                        <span class="change-badge">↑ 24.5%</span>
+                        <span>vs last month</span>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <div class="action-btn">
+                        <div class="action-icon">💸</div>
+                        <div class="action-label">Send</div>
+                    </div>
+                    <div class="action-btn">
+                        <div class="action-icon">📥</div>
+                        <div class="action-label">Receive</div>
+                    </div>
+                    <div class="action-btn">
+                        <div class="action-icon">📊</div>
+                        <div class="action-label">Stats</div>
+                    </div>
+                    <div class="action-btn">
+                        <div class="action-icon">⚡</div>
+                        <div class="action-label">More</div>
+                    </div>
+                </div>
+
+                <div class="section-title">
+                    <span>Services</span>
+                    <span class="see-all">See All →</span>
+                </div>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-icon-box">🎯</div>
+                        <div class="feature-content">
+                            <div class="feature-title">Goal Tracking</div>
+                            <div class="feature-desc">Monitor your progress in real-time</div>
+                        </div>
+                        <div class="feature-arrow">→</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon-box">🔒</div>
+                        <div class="feature-content">
+                            <div class="feature-title">Security Center</div>
+                            <div class="feature-desc">Advanced protection features</div>
+                        </div>
+                        <div class="feature-arrow">→</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon-box">💎</div>
+                        <div class="feature-content">
+                            <div class="feature-title">Premium Benefits</div>
+                            <div class="feature-desc">Exclusive rewards and offers</div>
+                        </div>
+                        <div class="feature-arrow">→</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon-box">🌐</div>
+                        <div class="feature-content">
+                            <div class="feature-title">Global Access</div>
+                            <div class="feature-desc">Connect from anywhere</div>
+                        </div>
+                        <div class="feature-arrow">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <div class="nav-item active">
+                    <div class="nav-icon">🏠</div>
+                    <div>Home</div>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">📈</div>
+                    <div>Activity</div>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">💳</div>
+                    <div>Cards</div>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">👤</div>
+                    <div>Profile</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
